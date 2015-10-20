@@ -1,0 +1,69 @@
+public void alternateAuto() {
+    		//Start with closed
+    		
+    		for (int i = 0; i < 3; i++) {
+    		//Drive to bin
+    		double currentTime = System.currentTimeMillis() / 1000.0;
+    		double futureTime = (double)(currentTime + 1.0);
+    		do {
+    		currentTime = System.currentTimeMillis() / 1000.0;
+    		motors.tankDrive(0.6,0.64);
+    		} while (currentTime < futureTime);
+    		
+//    		//Open claw to push bin out of way
+//    		mySolenoid.set(DoubleSolenoid.Value.kReverse);
+//    		isOpen=true;
+    		
+    		motors.tankDrive(0.0, 0.0);
+    		
+    		//Swerve to push green bin out
+    		//SWERVE ONE
+    		double currentTime2 = System.currentTimeMillis() / 1000.0;
+    		double futureTime2 = (double)(currentTime + 2.0);
+    		do {
+    		currentTime = System.currentTimeMillis() / 1000.0;
+    		motors.tankDrive(0.3,0.0);
+    		} while (currentTime2 < futureTime2);
+    		
+    		//SWERVE TWO
+    		double currentTime3 = System.currentTimeMillis() / 1000.0;
+    		double futureTime3 = (double)(currentTime + 2.0);
+    		do {
+    		currentTime = System.currentTimeMillis() / 1000.0;
+    		motors.tankDrive(0.3,0.0);
+    		} while (currentTime3 < futureTime3);
+    		
+    		
+    		//PICK up bin
+    		double current = System.currentTimeMillis() / 1000.0;
+    		double future = current + 2;
+    		
+    		do {
+    			current = System.currentTimeMillis() / 1000.0;
+    			lift.set(0.6);
+    		} while (current < future);
+    		
+    		}
+    		
+    		//Drive to auto zone
+    		double currentTime = System.currentTimeMillis() / 1000.0;
+    		double futureTime = (double)(currentTime + 1.0);
+    		do {
+    		currentTime = System.currentTimeMillis() / 1000.0;
+    		motors.tankDrive(0.6,0.3); ////INTERCHANGEABLE -----------------------------------------------------------------------
+    		} while (currentTime < futureTime);
+    		
+    		//DROP BOX
+    		double current2 = System.currentTimeMillis() / 1000.0;
+    		double future2 = current + 2;
+    		
+    		do {
+    			current = System.currentTimeMillis() / 1000.0;
+    			lift.set(-0.6);
+    		} while (current2 < future2);
+    		
+    		//Open claw to drop bin
+//    		mySolenoid.set(DoubleSolenoid.Value.kReverse);
+//    		isOpen=true;  
+    		
+    	}  

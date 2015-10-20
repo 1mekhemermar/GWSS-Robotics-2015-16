@@ -1,0 +1,41 @@
+public void autonomousPeriodic() {
+    		//if(config.Transition == 1){
+    			liftBox();
+        		
+        		// Back up
+        		double seconds = 3.0;
+        		
+        		double currentTime = System.currentTimeMillis() / 1000.0;
+        		double futureTime = (double)(currentTime + seconds);
+        		do {
+        		currentTime = System.currentTimeMillis() / 1000.0;
+        		motors.tankDrive(0.6,0.64);
+        		} while (currentTime < futureTime);
+        		
+        		motors.tankDrive(0,0);
+        		
+        		 currentTime = System.currentTimeMillis() / 1000.0;
+        		 futureTime = (double)(currentTime + (15 - seconds - 5));
+        		do {
+        			currentTime = System.currentTimeMillis() / 1000.0;
+        			motors.tankDrive(0, 0);
+        			//Timer.delay(6.5);
+        		} while (currentTime < futureTime);
+    		}
+
+public void liftBox() {
+	    		//Close claw
+	    		mySolenoid.set(DoubleSolenoid.Value.kForward);
+	    		isOpen=false;
+	    		
+	    		double current = System.currentTimeMillis() / 1000.0;
+	    		double future = current + 6;
+	    		
+	    		do {
+	    			current = System.currentTimeMillis() / 1000.0;
+	    			lift.set(0.6);
+	    		} while (current < future);
+	    		
+	    		lift.set(0);
+	    		
+    		}
