@@ -35,7 +35,7 @@ public class RobotTemplate extends IterativeRobot {
     RobotDrive motors;
     Jaguar lift;
     Encoder liftRotation;
-    String turn = "None";
+    int turn = 0;
     DoubleSolenoid mySolenoid = new DoubleSolenoid(0, 1);
     int currentGear = 0;
     DigitalInput proxSensor, proxSensor1, proxSensor2, proxSensor3, limitSwitchTop, limitSwitchGround;
@@ -115,9 +115,9 @@ public class RobotTemplate extends IterativeRobot {
 
         // Final Speed Outputs
         if (leftRight < 0) { // Turning Right
-            turn = "Right";
+            turn = -1;
         } else if (leftRight > 0) { // Turning Left
-            turn = "Left";
+            turn = 1;
         }
 
         // Value to negate from final speed
@@ -125,13 +125,13 @@ public class RobotTemplate extends IterativeRobot {
 
         // Negate speed
         switch (turn) {
-            case "Right":
+            case -1:
                 finalRightSpeed -= turnSpeed * GEAR[currentGear];
                 break;
-            case "Left":
+            case 1:
                 finalLeftSpeed -= turnSpeed * GEAR[currentGear];
                 break;
-            case "None":
+            case 0:
                 break;
         }
 
