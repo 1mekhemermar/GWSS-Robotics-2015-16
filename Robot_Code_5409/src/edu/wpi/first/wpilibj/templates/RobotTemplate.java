@@ -56,12 +56,25 @@ public class RobotTemplate extends IterativeRobot {
         driver = new Joystick(0);
         driver2 = new Joystick(1);
     }
-
+    public void firstLift(){
+        
+    }
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-
+        double seconds = 3.0;
+        //moves it forwards
+        double currentTime = System.currentTimeMillis() / 1000.0;
+        double futureTime = (double)(currentTime + seconds);
+       do{
+          motors.tankDrive(-0.6,-0.64);
+       }while (futureTime > currentTime);
+       lift.set(1);
+        do{
+          motors.tankDrive(0.6,0.64);
+       }while (futureTime > currentTime);
+       lift.set(1);
     }
 
     /**
