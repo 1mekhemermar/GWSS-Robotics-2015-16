@@ -81,7 +81,7 @@ public class RobotTemplate extends IterativeRobot {
           //in addition you must redefine futureTime to be 3 over the new value of current time before the loop starts
        }while (futureTime > currentTime);
        lift.set(1);
-       //lift is already set to 1
+       //lift is already set to 1, I think you wanted to set this to 0
     }
 
     /**
