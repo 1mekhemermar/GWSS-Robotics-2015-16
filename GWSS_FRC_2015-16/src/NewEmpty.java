@@ -4,9 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package edu.wpi.first.wpilibj.templates;
-
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -17,7 +15,6 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Timer;
 
-
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -26,11 +23,11 @@ import edu.wpi.first.wpilibj.Timer;
  * directory.
  */
 public class RobotTemplate extends IterativeRobot {
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-    
     Joystick driver, driver2;
     RobotDrive motors;
     Jaguar lift;
@@ -42,8 +39,8 @@ public class RobotTemplate extends IterativeRobot {
     boolean isOpen = false, allowGearUp = true, allowGearDown = true, canLift = true, canLower = true;
     double currentLevel, currentLiftSpeed = 0;
     final float[] GEAR = {0.5f, 0.8f, 1};
-    double initialTime=0,finalTime=0;
-    
+    double initialTime = 0, finalTime = 0;
+
     public void robotInit() {
         proxSensor = new DigitalInput(2);
         proxSensor1 = new DigitalInput(3);
@@ -56,9 +53,11 @@ public class RobotTemplate extends IterativeRobot {
         driver = new Joystick(0);
         driver2 = new Joystick(1);
     }
-    public void firstLift(){
-        
+
+    public void firstLift() {
+
     }
+
     /**
      * This function is called periodically during autonomous
      */
@@ -66,42 +65,75 @@ public class RobotTemplate extends IterativeRobot {
         //could do without initial time
         //could include lift and drive in same loop so that it moves both at the same time
         //+3 and drive values are temporary and require testing
-        //need to include emergency sswitch codes
-    mySolenoid.set(DoubleSolenoid.Value.kReverse);
-    if(/*proxsensor stuff to move it down to initial position*/){
+        //need to include emergency switch codes (DONE)
+        //entire code can be placed in a loop so that the number of times it iterates could be the number of totes picked up
+    /*
+         not needed
+         mySolenoid.set(DoubleSolenoid.Value.kReverse);
+         if(proxsensor stuff to move it down to initial position){
         
-    }
-    initialTime = System.currentTimeMillis() / 1000.0;
-    finalTime = initialTime+2;
-    do{
+         }
+         initialTime = System.currentTimeMillis() / 1000.0;
+         finalTime = initialTime+2;
+         do{
         
-    }while(initialTime<finalTime);
-    mySolenoid.set(DoubleSolenoid.Value.kForward);
-    initialTime = System.currentTimeMillis() / 1000.0;
-    finalTime = initialTime+3;
-    do{
-        lift.set(0.9);
-    }while(initialTime<finalTime);
-    lift.set(0);
-    initialTime = System.currentTimeMillis() / 1000.0;
-    finalTime = initialTime+3;
-    do{
-        motors.tankDrive(0,0);
-    }while(initialTime<finalTime);
-    motors.tankDrive(0,0);
-    mySolenoid.set(DoubleSolenoid.Value.kReverse);
+         }while(initialTime<finalTime);
+         */
+        canLift = true;
+        canLower = false;
+        isOpen = true;
+        
+        //grabbing and lifting tote
+        
+        mySolenoid.set(DoubleSolenoid.Value.kForward);
+        isOpen = false;
+        initialTime = (double) System.currentTimeMillis() / 1000.0;
+        finalTime = initialTime + 3;
+        do {
+            lift.set(0.9);
+            initialTime = (double) System.currentTimeMillis() / 1000.0;
+        } while (initialTime < finalTime && proxSensor3.get());
+        canLift = false;
+        canLower = true;
+        lift.set(0);
+        
+        //driving
+        
+        initialTime = (double) System.currentTimeMillis() / 1000.0;
+        finalTime = initialTime + 3;
+        do {
+            motors.tankDrive(0, 0);
+            initialTime = (double) System.currentTimeMillis() / 1000.0;
+        } while (initialTime < finalTime);
+        motors.tankDrive(0, 0);
+        
+        //dropping tote and lowering arm
+        
+        mySolenoid.set(DoubleSolenoid.Value.kReverse);
+        do {
+            lift.set(-1);
+        } while (canLower && proxSensor1.get());
+        initialTime = (double) System.currentTimeMillis() / 1000.0;
+        finalTime = (initialTime + 0.1);
+        do {
+            initialTime = (double) System.currentTimeMillis() / 1000.0;
+            lift.set(1);
+        } while (initialTime < finalTime);
+        canLower = false;
+        canLift = true;
     }
 
     /**
      * This function is called periodically during operator control
      */
-    public void teleopPeriodic() {}
-    
+    public void teleopPeriodic() {
+    }
+
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    
+
     }
-    
+
 }
