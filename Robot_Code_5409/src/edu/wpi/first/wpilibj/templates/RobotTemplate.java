@@ -69,12 +69,19 @@ public class RobotTemplate extends IterativeRobot {
         double futureTime = (double)(currentTime + seconds);
        do{
           motors.tankDrive(-0.6,-0.64);
+          //You're not changing the value of current time like this, this is an infinite loop
+          //although the millis function gives you time it only gives you time at that specific moment that you call i, so even though
+          //currentTime = System.currentTimeMillis() / 1000.0 it can not change on its own and has a constant value
        }while (futureTime > currentTime);
        lift.set(1);
         do{
           motors.tankDrive(0.6,0.64);
+          //I'm guessing this is just for testing to move it back to the original position and to see
+          //whether positive or negative values move the robot forwards, however this has the same problems as the first loop
+          //in addition you must redefine futureTime to be 3 over the new value of current time before the loop starts
        }while (futureTime > currentTime);
        lift.set(1);
+       //lift is already set to 1
     }
 
     /**
