@@ -9,21 +9,34 @@ import static com.sun.javafx.fxml.expression.Expression.add;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import javax.media.CannotRealizeException;
 import javax.media.Manager;
 import javax.media.NoPlayerException;
 import javax.media.Player;
-import javax.swing.JPanel;
 
 public class CameraUtil {
 
     public static void main(String[] args) {
 
+        try {
+            URL myURL = new URL("http://example.com/");
+            URLConnection myURLConnection = myURL.openConnection();
+            myURLConnection.connect();
+        } catch (MalformedURLException e) {
+            // new URL() failed
+            // ...
+        } catch (IOException e) {
+            // openConnection() failed
+            // ...
+        }
+
         
     }
 
-    public CameraUtil(URL mediaURL) {
+    private CameraUtil(URL mediaURL) {
         setLayout(new BorderLayout()); // use a BorderLayout
 
         // Use lightweight components for Swing compatibility
