@@ -36,6 +36,8 @@ public class CameraUtil {
         
     }
 
+
+
     private CameraUtil(URL mediaURL) {
         setLayout(new BorderLayout()); // use a BorderLayout
 
