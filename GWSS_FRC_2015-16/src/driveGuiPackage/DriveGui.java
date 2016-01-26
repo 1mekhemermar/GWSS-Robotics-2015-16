@@ -26,6 +26,8 @@ public class DriveGui extends javax.swing.JFrame {
             cameraTextArea.setText("No Camera Found");
             cameraLabel.setText("Camera IP: 10.XX.YY.8    Resolution: ???x???");
         }
+        CameraUtil.gateway();
+
     }
 
     /**
@@ -181,7 +183,7 @@ public class DriveGui extends javax.swing.JFrame {
         int ip = 0;
         int resolutionOne = 0;
         int resolutionTwo = 0;
-        
+
         jProgressBar1.setValue((int) power);
         batteryVoltageLabel.setText("" + power + "%");
         if (cameraOn) {

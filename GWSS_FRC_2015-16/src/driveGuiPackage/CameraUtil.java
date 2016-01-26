@@ -20,12 +20,16 @@ import javax.media.Player;
 public class CameraUtil {
 
     public static void main(String[] args) {
+        gateway();
+    }
 
+    public static void gateway() {
+        
         try {
             URL myURL = new URL("http://example.com/");
             URLConnection myURLConnection = myURL.openConnection();
             myURLConnection.connect();
-            
+
             CameraUtil camera = new CameraUtil(myURL);
             
         } catch (MalformedURLException e) {
@@ -36,11 +40,12 @@ public class CameraUtil {
             // ...
         }
 
-        
     }
 
-
-
+    /**
+     *
+     * @param mediaURL
+     */
     public CameraUtil(URL mediaURL) {
         setLayout(new BorderLayout()); // use a BorderLayout
 
