@@ -25,6 +25,9 @@ public class CameraUtil {
             URL myURL = new URL("http://example.com/");
             URLConnection myURLConnection = myURL.openConnection();
             myURLConnection.connect();
+            
+            CameraUtil camera = new CameraUtil(myURL);
+            
         } catch (MalformedURLException e) {
             // new URL() failed
             // ...
@@ -38,7 +41,7 @@ public class CameraUtil {
 
 
 
-    private CameraUtil(URL mediaURL) {
+    public CameraUtil(URL mediaURL) {
         setLayout(new BorderLayout()); // use a BorderLayout
 
         // Use lightweight components for Swing compatibility
